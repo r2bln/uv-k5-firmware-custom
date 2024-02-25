@@ -1006,6 +1006,10 @@ static void RenderStatus() {
 }
 
 static void RenderSpectrum() {
+  UI_PrintString("HELLO", 2, 0, 0, 8);
+  UI_PrintString("ZADROSTAN", 2, 0, 3, 8);
+  return;
+
   DrawTicks();
   DrawArrow(128u * peak.i / GetStepsCount());
   DrawSpectrum();
