@@ -132,6 +132,7 @@ OBJS += app/scanner.o
 ifeq ($(ENABLE_UART),1)
 	OBJS += app/uart.o
 endif
+OBJS += app/randomapp.o
 ifeq ($(ENABLE_AM_FIX), 1)
 	OBJS += am_fix.o
 endif

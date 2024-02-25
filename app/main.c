@@ -31,6 +31,8 @@
 #include "app/spectrum.h"
 #endif
 
+#include "app/randomapp.h"
+
 #include "audio.h"
 #include "board.h"
 #include "driver/bk4819.h"
@@ -203,7 +205,8 @@ static void processFKeyFunction(const KEY_Code_t Key, const bool beep)
 				gRequestSaveVFO   = true;
 				gVfoConfigureMode = VFO_CONFIGURE_RELOAD;
 #elif defined(ENABLE_SPECTRUM)
-				APP_RunSpectrum();
+				// APP_RunSpectrum();
+				APP_RunRandomapp();
 				gRequestDisplayScreen = DISPLAY_MAIN;
 #endif
 			}
