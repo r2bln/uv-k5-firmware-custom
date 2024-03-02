@@ -13,8 +13,8 @@
 static const uint8_t MAX_WIDTH = 128;
 static const uint8_t MAX_HEIGHT = 56;
 
-static const int w = 32;
-static const int h = 32;
+static const int w = 30;
+static const int h = 30;
 
 #define for_x for (int x = 0; x < w; x++)
 #define for_y for (int y = 0; y < h; y++)
@@ -32,6 +32,7 @@ static void Seed(void* u) {
     for_xy univ[x][y] = BK4819_GetRSSI() % 2 ? 1 : 0;
 }
 
+/*
 static void DrawBox() {
     for (uint8_t x = 0; x < MAX_WIDTH; ++x) {
         PutPixel(x, 0, true);
@@ -43,14 +44,13 @@ static void DrawBox() {
         PutPixel(MAX_WIDTH - 1, y, true);
     }    
 }
+*/
 
 static void Render(void* u) {
-    unsigned (*univ)[MAX_WIDTH] = u;
     UI_DisplayClear();
 
-    DrawBox();
-
-    for_xy PutPixel(x, y, univ[x][y]);
+    unsigned (*univ)[MAX_WIDTH] = u;
+    for_xy PutPixel(x + 50 , y + 10, univ[x][y]);
 
     ST7565_BlitFullScreen();
 }
