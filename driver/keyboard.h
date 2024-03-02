@@ -50,6 +50,12 @@ extern KEY_Code_t gKeyReading1;
 extern uint16_t   gDebounceCounter;
 extern bool       gWasFKeyPressed;
 
+typedef struct KeyboardState {
+  KEY_Code_t current;
+  KEY_Code_t prev;
+  uint8_t counter;
+} KeyboardState;
+
 KEY_Code_t KEYBOARD_Poll(void);
 
 #endif

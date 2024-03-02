@@ -130,12 +130,6 @@ typedef struct SpectrumSettings {
   bool backlightState;
 } SpectrumSettings;
 
-typedef struct KeyboardState {
-  KEY_Code_t current;
-  KEY_Code_t prev;
-  uint8_t counter;
-} KeyboardState;
-
 typedef struct ScanInfo {
   uint16_t rssi, rssiMin, rssiMax;
   uint16_t i, iPeak;
