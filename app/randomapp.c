@@ -32,7 +32,6 @@ static void Seed(void* u) {
     for_xy univ[x][y] = BK4819_GetRSSI() % 2 ? 1 : 0;
 }
 
-/*
 static void DrawBox() {
     for (uint8_t x = 0; x < MAX_WIDTH; ++x) {
         PutPixel(x, 0, true);
@@ -44,12 +43,12 @@ static void DrawBox() {
         PutPixel(MAX_WIDTH - 1, y, true);
     }    
 }
-*/
 
 static void Render(void* u) {
     UI_DisplayClear();
 
-    unsigned (*univ)[MAX_WIDTH] = u;
+    DrawBox();
+    unsigned (*univ)[w] = u;
     for_xy PutPixel(x + 50 , y + 10, univ[x][y]);
 
     ST7565_BlitFullScreen();
@@ -57,19 +56,46 @@ static void Render(void* u) {
 
 static void Evolve(void* u) {
 	unsigned (*univ)[w] = u;
-	unsigned new[h][w];
 
 	for_y for_x {
 		int n = 0;
-		for (int y1 = y - 1; y1 <= y + 1; y1++)
-			for (int x1 = x - 1; x1 <= x + 1; x1++)
-				if (univ[(y1 + h) % h][(x1 + w) % w])
-					n++;
 
-		if (univ[y][x]) n--;
-		new[y][x] = (n == 3 || (n == 2 && univ[y][x]));
+        // top left
+        if (x - 1 >= 0 && y - 1 >= 0)
+            if (univ[x - 1][y - 1])
+                n++;
+        // left
+        if (x - 1 >= 0)
+            if (univ[x - 1][y])
+                n++;
+        // bottom left
+        if (x - 1 >= 0 && y + 1 < h)
+            if (univ[x - 1][y + 1])
+                n++;
+
+        // top
+        if (y - 1 >= 0)
+            if (univ[x][y - 1])
+                n++;
+        // bottom
+        if (y + 1 < h)
+            if (univ[x][y + 1])
+                n++;
+
+        // top right
+        if (x + 1 < w && y - 1 >= 0)
+            if (univ[x + 1][y - 1]) n++;
+        // right
+        if (x + 1 < w)
+            if (univ[x + 1][y]) n++;
+        // bottom right
+        if (x + 1 < w && y + 1 < h)
+            if(univ[x + 1][y + 1]) n++;
+        
+
+        if (univ[x][y] && (n < 2 || n > 3)) univ[x][y] = 0;
+        else if (!univ[x][y] && n == 3) univ[x][y] = 1;
 	}
-	for_y for_x univ[y][x] = new[y][x];
 }
 
 static void DeInitRandomapp(void) {
