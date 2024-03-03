@@ -13,8 +13,8 @@
 static const uint8_t MAX_WIDTH = 128;
 static const uint8_t MAX_HEIGHT = 56;
 
-static const int w = 30;
-static const int h = 30;
+static const int w = 120;
+static const int h = 50;
 
 #define for_x for (int x = 0; x < w; x++)
 #define for_y for (int y = 0; y < h; y++)
@@ -49,7 +49,7 @@ static void Render(void* u) {
 
     DrawBox();
     unsigned (*univ)[w] = u;
-    for_xy PutPixel(x + 50 , y + 10, univ[x][y]);
+    for_xy PutPixel(x + 1 , y + 1, univ[x][y]);
 
     ST7565_BlitFullScreen();
 }
@@ -145,7 +145,7 @@ static bool HandleUserInput() {
 
 void APP_RunRandomapp(void) {
     isInitialized = true;
-    uint8_t univ[MAX_WIDTH][MAX_HEIGHT];
+    uint8_t univ[w][h];
 
     Seed(univ);
     while (isInitialized)
@@ -153,5 +153,6 @@ void APP_RunRandomapp(void) {
         HandleUserInput();
         Evolve(univ);
         Render(univ);
+        SYSTEM_DelayMs(300);
     }
 }
